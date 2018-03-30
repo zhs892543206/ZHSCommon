@@ -2,7 +2,7 @@ package com.zhs.commonhelper.log;
 
 import android.util.Log;
 
-import com.zhs.commonhelper.app.AppUtil;
+import com.zhs.commonhelper.app.AppFileUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -163,8 +163,8 @@ public class LogUtil {
 	 */
 	private static void dirPathCheck() {
 
-		String appPathStr = AppUtil.getAppFilePath();
-		appPathStr = appPathStr + "/" + AppUtil.LogFileName + "/";
+		String appPathStr = AppFileUtil.getAppFilePath();
+		appPathStr = appPathStr + "/" + AppFileUtil.LogFileName + "/";
 
 		File dir = new File(dirPath);
 		if(!dir.exists()){

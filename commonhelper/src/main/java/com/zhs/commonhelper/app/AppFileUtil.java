@@ -8,14 +8,16 @@ import android.os.Environment;
  * Created by zhs89 on 2018/3/27.
  */
 
-public class AppUtil {
+public class AppFileUtil {
     //在新的应用的application里修改
     public static String AppPath = "ZHS";//默认应用地址
     public static String LogFileName ="logo";//默认普通日志文件夹名
     public static String CrashFileName =  "crash";
+    public static String PACKAGE_NAME = "";//包名
 
     /**
      * 获取当前进程名
+     * context context这个还是用传入的好
      */
     public static String getCurrentProcessName(Context context) {
         int pid = android.os.Process.myPid();

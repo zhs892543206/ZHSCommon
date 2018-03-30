@@ -8,7 +8,7 @@ import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.zhs.commonhelper.app.AppUtil;
+import com.zhs.commonhelper.app.AppFileUtil;
 import com.zhs.commonhelper.log.LogUtil;
 
 import java.io.BufferedWriter;
@@ -189,8 +189,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			String time = formatter.format(new Date());
 			String fileName = "crash-" + time + "-" + timestamp + ".txt";//还是.log虽然有些手机需要该后缀才能看
 			 LogUtil.e("程序异常请查看文件" + fileName);
-			String path = AppUtil.getAppFilePath();
-			path = path+"/" + AppUtil.CrashFileName + "/";
+			String path = AppFileUtil.getAppFilePath();
+			path = path+"/" + AppFileUtil.CrashFileName + "/";
 
 			File dir = new File(path);
 			if (!dir.exists()) {
