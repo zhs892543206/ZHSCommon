@@ -23,7 +23,11 @@ android {
     }
 
 }
-
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -31,8 +35,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.github.mcxtzhang:SuspensionIndexBar:V1.0.0'
 }
-
+//打jar包是添加下面代码然后terminal执行gradlew makeJar，就会在特定目录生成CommonHelper.jar，位置看下面代码。打好点jar里代码是加密的。反编译没试过
 task makeJar(type: org.gradle.api.tasks.Copy){
     delete 'build/libs/CommonHelper.jar'
     from('build/intermediates/bundles/release/')

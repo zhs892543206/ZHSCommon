@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/widget_height"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/layout_left_padding"
+    android:background="@color/white"><!--这里的paddingLeft也影响头部字母边距-->
+    <View
+        android:id="@+id/item_city_div"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black_dividers"
+        android:layout_alignParentBottom="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_above="@id/item_city_div">
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/select_circle"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/widget_padding"/>
+
+    <TextView
+        android:id="@+id/tvCity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="afadaf "
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/ivAvatar"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -9,9 +9,9 @@ import android.widget.TextView;
  * 控件宽度设置wrap的话则第一次多宽，即使字变多也是这么宽只是字压缩了。所以最好是设置固定值或者match，或者weight那种
  * A {@link TextView} that re-sizes its text to be no larger than the width of the view.
  *
- * @attr ref R.styleable.AutofitTextView_sizeToFit
- * @attr ref R.styleable.AutofitTextView_minTextSize
- * @attr ref R.styleable.AutofitTextView_precision
+ * @attr ref R.styleable.AutofitTxtStyle_sizeToFit
+ * @attr ref R.styleable.AutofitTxtStyle_minTextSize
+ * @attr ref R.styleable.AutofitTxtStyle_precision
  */
 public class AutofitTextView extends TextView implements AutofitHelper.OnTextSizeChangeListener {
 
@@ -149,7 +149,7 @@ public class AutofitTextView extends TextView implements AutofitHelper.OnTextSiz
      *
      * @param minSize The scaled pixel size.
      *
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
+     * @attr ref me.grantland.R.styleable#AutofitTxtStyle_minTextSize
      */
     public void setMinTextSize(int minSize) {
         mHelper.setMinTextSize(TypedValue.COMPLEX_UNIT_SP, minSize);
@@ -162,7 +162,7 @@ public class AutofitTextView extends TextView implements AutofitHelper.OnTextSiz
      * @param unit The desired dimension unit.
      * @param minSize The desired size in the given units.
      *
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
+     * @attr ref me.grantland.R.styleable#AutofitTxtStyle_minTextSize
      */
     public void setMinTextSize(int unit, float minSize) {
         mHelper.setMinTextSize(unit, minSize);

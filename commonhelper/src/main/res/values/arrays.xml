@@ -2,7 +2,7 @@
 <resources>
 
     <!-- AutofitTextView库用到，eclipse不是as添加库太麻烦，所以直接拿进来用了 -->
-    <declare-styleable name="AutofitTextView">
+    <declare-styleable name="AutofitTxtStyle">
         <!-- Minimum size of the text. -->
         <attr name="minTextSize" format="dimension" />
         <!-- Amount of precision used to calculate the correct text size to fit within its

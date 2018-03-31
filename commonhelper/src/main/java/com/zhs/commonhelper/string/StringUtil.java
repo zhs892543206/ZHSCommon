@@ -3,6 +3,7 @@ package com.zhs.commonhelper.string;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 //中文转拼音  
 public class StringUtil {
@@ -13,7 +14,7 @@ public class StringUtil {
 	}
 
 	public static String getStringNoPrefix(String sStr, String prefix) {
-		if (sStr.toUpperCase().startsWith(prefix.toUpperCase())) {
+		if (sStr.toUpperCase(Locale.ROOT).startsWith(prefix.toUpperCase(Locale.ROOT))) {
 			return sStr.substring(prefix.length()).trim();
 		} else {
 			return sStr.trim();
@@ -29,7 +30,7 @@ public class StringUtil {
 		if (hexString == null || hexString.equals("")) {
 			return null;
 		}
-		hexString = hexString.toUpperCase();
+		hexString = hexString.toUpperCase(Locale.ROOT);
 		int length = hexString.length() / 2;
 		char[] hexChars = hexString.toCharArray();
 		byte[] d = new byte[length];

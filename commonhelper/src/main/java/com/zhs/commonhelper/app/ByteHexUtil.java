@@ -1,6 +1,7 @@
 package com.zhs.commonhelper.app;
 
 import java.math.BigInteger;
+import java.util.Locale;
 
 /**
  * Created by zhs89 on 2017/11/29.
@@ -50,7 +51,7 @@ public class ByteHexUtil {
         if (hexString == null || hexString.equals("")) {
             return null;
         }
-        hexString = hexString.toUpperCase();
+        hexString = hexString.toUpperCase(Locale.ROOT);
         int length = hexString.length() / 2;
         char[] hexChars = hexString.toCharArray();
         byte[] d = new byte[length];

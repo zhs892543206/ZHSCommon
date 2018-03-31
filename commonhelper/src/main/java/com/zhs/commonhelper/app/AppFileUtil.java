@@ -37,7 +37,7 @@ public class AppFileUtil {
      */
     public static String getAppFilePath(){
         String path;
-        //判断外置内存卡是否存在
+        //判断外置内存卡是否存在，并且是否具有读写权限
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             path = Environment.getExternalStorageDirectory().getPath()+"/"+AppPath;
         }else{

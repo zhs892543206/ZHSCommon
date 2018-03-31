@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="widget_margin">4dp</dimen>
+    <dimen name="widget_padding">8dp</dimen>
+    <!--控件高度-->
+    <dimen name="widget_height">48dp</dimen>
+
+    <!--布局与整个手机的边距-->
+    <dimen name="layout_left_padding">16dp</dimen>
+
+    <dimen name="normal_txtsize">16sp</dimen>
+</resources>

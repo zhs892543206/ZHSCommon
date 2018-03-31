@@ -27,9 +27,9 @@ import java.util.ArrayList;
  * A helper class to enable automatically resizing {@link TextView}`s {@code textSize} to fit
  * within its bounds.
  *
- * @attr ref R.styleable.AutofitTextView_sizeToFit
- * @attr ref R.styleable.AutofitTextView_minTextSize
- * @attr ref R.styleable.AutofitTextView_precision
+ * @attr ref R.styleable.AutofitTxtStyle_sizeToFit
+ * @attr ref R.styleable.AutofitTxtStyle_minTextSize
+ * @attr ref R.styleable.AutofitTxtStyle_precision
  */
 public class AutofitHelper {
 
@@ -71,13 +71,13 @@ public class AutofitHelper {
 
             TypedArray ta = context.obtainStyledAttributes(
                     attrs,
-                    R.styleable.AutofitTextView,
+                    R.styleable.AutofitTxtStyle,
                     defStyle,
                     0);
-            sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, sizeToFit);
-            minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTextView_minTextSize,
+            sizeToFit = ta.getBoolean(R.styleable.AutofitTxtStyle_sizeToFit, sizeToFit);
+            minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTxtStyle_minTextSize,
                     minTextSize);
-            precision = ta.getFloat(R.styleable.AutofitTextView_precision, precision);
+            precision = ta.getFloat(R.styleable.AutofitTxtStyle_precision, precision);
             ta.recycle();
 
             helper.setMinTextSize(TypedValue.COMPLEX_UNIT_PX, minTextSize)
@@ -324,7 +324,7 @@ public class AutofitHelper {
      *
      * @param size The scaled pixel size.
      *
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
+     * @attr ref me.grantland.R.styleable#AutofitTxtStyle_minTextSize
      */
     public AutofitHelper setMinTextSize(float size) {
         return setMinTextSize(TypedValue.COMPLEX_UNIT_SP, size);
@@ -337,7 +337,7 @@ public class AutofitHelper {
      * @param unit The desired dimension unit.
      * @param size The desired size in the given units.
      *
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
+     * @attr ref me.grantland.R.styleable#AutofitTxtStyle_minTextSize
      */
     public AutofitHelper setMinTextSize(int unit, float size) {
         Context context = mTextView.getContext();

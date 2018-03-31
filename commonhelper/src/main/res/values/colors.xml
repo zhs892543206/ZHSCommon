@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--查询背景颜色-->
+    <color name="search_bg">#F9F9FA</color>
+
+    <!--透明-->
+    <color name="transparent">#00FFFFFF</color>
+
+    <!--半透明-->
+    <color name="translucent_black">#11000000</color>
+    <!--半透明-->
+    <color name="translucent">#66FFFFFF</color>
+    <!--控件被点击后默认的半透明背景-->
+    <color name="translucent_pressed">#22000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_dividers">#1FFFFFFF</color>
+    <color name="white_hint_text">#4DFFFFFF</color>
+    <color name="white_secondary_text">#B3FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_dividers">#1F000000</color>
+    <color name="black_hint_text">#42000000</color>
+    <color name="black_three_text">#5A000000</color>
+    <color name="black_secondary_text">#8A000000</color>
+    <color name="black_text">#656565</color>
+    <color name="black_light">#F3F3F3</color>
+    <color name="black_foucs">#333333</color><!--突出显示的黑色-->
+    <color name="black_nofoucs">#888888</color><!--没选中的黑色-->
+    <color name="content_textcolor">#323232</color>
+
+
+    <!-- 规范颜色 -->
+    <!-- 列表标题颜色 -->
+    <color name="list_title_txtcolor">#42000000</color>
+    <color name="list_title_bgcolor">#F5F5F5</color>
+    <!-- 列表项颜色 -->
+    <color name="list_item_txtcolor">#DE656565</color>
+</resources>

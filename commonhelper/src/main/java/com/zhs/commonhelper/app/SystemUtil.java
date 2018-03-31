@@ -532,7 +532,7 @@ public class SystemUtil extends Activity {
 		// add number to string
 		    m_szUniqueID+= Integer.toHexString(b);
 		}   // hex string to uppercase
-		m_szUniqueID = m_szUniqueID.toUpperCase();
+		m_szUniqueID = m_szUniqueID.toUpperCase(Locale.ROOT);
 
 		return m_szUniqueID;
 	}
