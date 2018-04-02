@@ -162,18 +162,16 @@ public class LogUtil {
 	 * 获取文件路径dirpath，没有则创建
 	 */
 	private static void dirPathCheck() {
+		File dir = AppFileUtil.getPrivateFile(AppFileUtil.LogFileName);
+		if(dir!=null) {
+			dirPath = dir.getPath();
+			if (!dir.exists()) {
+				boolean result = dir.mkdirs();
+				if (!result) {
 
-		String appPathStr = AppFileUtil.getAppFilePath();
-		appPathStr = appPathStr + "/" + AppFileUtil.LogFileName + "/";
-
-		File dir = new File(dirPath);
-		if(!dir.exists()){
-			boolean result = dir.mkdirs();
-			if(!result){
-
+				}
 			}
 		}
-		
 	}
 	
 	
@@ -232,7 +230,9 @@ public class LogUtil {
 	 */
 	public static void performWriteLog(String logStr){
 		dirPathCheck();
-		getOutputStream(dirPath);
-		writeLog(logStr);
+		if(dirPath!=null && dirPath.length()>0) {
+			getOutputStream(dirPath);
+			writeLog(logStr);
+		}
 	}
 }

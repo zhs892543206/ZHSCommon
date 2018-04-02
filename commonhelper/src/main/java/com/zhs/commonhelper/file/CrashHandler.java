@@ -98,7 +98,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			//重启要放在退出程序前
 			crashCallBack.restartApp();
 			crashCallBack.endApp();
-//			MyApplication.getInstance().onTerminate();
+//			ZHSCommonApp.appContext().onTerminate();
 		}
 	}
 
@@ -189,20 +189,19 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			String time = formatter.format(new Date());
 			String fileName = "crash-" + time + "-" + timestamp + ".txt";//还是.log虽然有些手机需要该后缀才能看
 			 LogUtil.e("程序异常请查看文件" + fileName);
-			String path = AppFileUtil.getAppFilePath();
-			path = path+"/" + AppFileUtil.CrashFileName + "/";
-
-			File dir = new File(path);
-			if (!dir.exists()) {
-				dir.mkdirs();
+			File dir = AppFileUtil.getPrivateFile(AppFileUtil.CrashFileName);
+			if(dir!=null) {
+				if (!dir.exists()) {
+					dir.mkdirs();
+				}
+				FileOutputStream fos = new FileOutputStream(dir.getPath() + "/" + fileName);
+				//			fos.write(sb.toString().getBytes());
+				//			fos.close();
+				OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");//防止中文乱码
+				BufferedWriter bufferedWriter = new BufferedWriter(osw);
+				bufferedWriter.write(sb.toString());
+				bufferedWriter.flush();
 			}
-			FileOutputStream fos = new FileOutputStream(path + fileName);
-//			fos.write(sb.toString().getBytes());
-//			fos.close();
-			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");//防止中文乱码
-			BufferedWriter bufferedWriter=new BufferedWriter(osw);
-			bufferedWriter.write(sb.toString());
-			bufferedWriter.flush();
 			
 //			/**
 //		 * 写在写奔溃文件后面，防止奔溃下面语句也有问题，结果下面奔溃时，上面还是没有写成功，下面注释了就成功了
@@ -237,11 +236,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
 ////	        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //该方法是关闭中途的所以activity前提你重启的activity是起源
 ////
 ////	        mContext.startActivity(intent);
-//		Intent intent = new Intent( MyApplication.getInstance(), MainActivity.class);
+//		Intent intent = new Intent( ZHSCommonApp.appContext(), MainActivity.class);
 //		PendingIntent restartIntent = PendingIntent.getActivity(
-//				MyApplication.getInstance(), 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+//				ZHSCommonApp.appContext(), 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
 //		//退出程序
-//		AlarmManager mgr = (AlarmManager)MyApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
+//		AlarmManager mgr = (AlarmManager)ZHSCommonApp.appContext().getSystemService(Context.ALARM_SERVICE);
 //		mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
 //				restartIntent); // 1秒钟后重启应用
 //

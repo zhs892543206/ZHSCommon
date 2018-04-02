@@ -22,8 +22,8 @@ public class DataCleanManager {
 
     /** * 清除本应用所有数据库(/data/data/com.xxx.xxx/databases) * * @param context */
     public static void cleanDatabases(Context context) {
-        deleteFilesByDirectory(new File("/data/data/"
-                + context.getPackageName() + "/databases"));
+        deleteFilesByDirectory(new File("/data/data/" + context.getPackageName() + "/databases"));
+        //new File("/data/data/" + context.getPackageName() + "/databases"));
     }
 
     /**
@@ -87,10 +87,9 @@ public class DataCleanManager {
      * longTime   删除一个星期以前的，传7
      */
     public static void deleteLogFiles(int longTime) {
-        String path = AppFileUtil.getAppFilePath();
         String time = TimeUtil.dateToStryyyyMMdd(new Date(new Date().getTime()-longTime*24*60*60*1000));
 
-        deleteFilesByDirectory(path, time);
+        deleteFilesByDirectory(time);
     }
 
     /** * 删除方法 这里只会删除某个文件夹下的文件，如果传入的directory是个文件，将不做处理
@@ -105,12 +104,11 @@ public class DataCleanManager {
      }
      time参数可以 DateFormatUtil.dateToStryyyyMMdd(startDate = new Date(new Date().getTime()-7*24*60*60*1000); ) //删除一个星期前的所有日志文件
      * */
-    private static void deleteFilesByDirectory(String fileName, String time) {
-        LogUtil.e("删除,time为"+time+"以前的fileName为"+fileName+"下的日志文件");
+    private static void deleteFilesByDirectory(String time) {
+        LogUtil.e("删除,time为"+time+"以前的日志文件");
 
         //删除logo文件夹里面日志20161006
-        String logFileName = fileName + "/"+AppFileUtil.LogFileName;
-        File logFile = new File(logFileName);
+        File logFile = AppFileUtil.getPrivateFile(AppFileUtil.LogFileName);
         if (logFile != null && logFile.exists() && logFile.isDirectory()) {
             for (File item : logFile.listFiles()) {
                 //删除日期小于等于指定时间的log
@@ -122,8 +120,7 @@ public class DataCleanManager {
         }
 
         //删除crash文件夹里面日志crash-2016-10-25-15-50-2-1477381820513
-        String crashFileName = fileName + "/"+AppFileUtil.CrashFileName;
-        File crashFile = new File(crashFileName);
+        File crashFile = AppFileUtil.getPrivateFile(AppFileUtil.CrashFileName);
         if (crashFile!= null && crashFile.exists() && crashFile.isDirectory()) {
             for (File item : crashFile.listFiles()) {
                 String name = item.getName();
