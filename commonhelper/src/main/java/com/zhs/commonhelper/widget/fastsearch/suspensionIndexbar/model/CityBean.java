@@ -14,7 +14,7 @@ public class CityBean extends BaseIndexPinyinBean {
     private String cityId;//城市Id
     private String city;//城市名字
     private boolean isTop;//是否是最上面的 不需要被转化成拼音的 默认false。true就是上面特殊的选项，如最近选项
-    private String isRightImg;//是否右侧添加选择图标
+    private String isRightImg;//是否右侧添加选择图标,1显示0 不显示
     public CityBean() {
     }
 

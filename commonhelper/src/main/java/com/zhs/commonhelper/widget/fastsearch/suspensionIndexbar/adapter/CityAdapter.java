@@ -48,7 +48,7 @@ public class CityAdapter extends CommonRecyclerVAdapter<CityBean> {
         });
 
         if(isVisibilityBindNfc){
-            if(datasList.get(position).getIsRightImg()!=null && datasList.get(position).getIsRightImg().length()>0) {
+            if(datasList.get(position).getIsRightImg()!=null && datasList.get(position).getIsRightImg().equals("1")) {
                 avatar.setVisibility(View.VISIBLE);
             }else {
                 avatar.setVisibility(View.GONE);

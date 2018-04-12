@@ -210,7 +210,7 @@ public class MyFastIndexLLy extends RelativeLayout {
 
     /**
      * 设置列表item点击事件，不包括头部的快捷按钮
-     * @param callback
+     * @param callback 这里callback里返回的pos是界面上显示的位置和searchContactList对应和searchList没关系
      */
     public void setRecyclerClick(ConfirmCallback callback){
         mAdapter.setConfirmCallback(callback);
@@ -220,7 +220,17 @@ public class MyFastIndexLLy extends RelativeLayout {
      * 设置头部左侧为当前要选择的内容
      * @param string
      */
-    public void setLeftTxt(String string){
+    public void setLeftTxt(String string, OnClickListener onClickListener){
         leftTxt.setText(string);
+        leftTxt.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * 设置头部右侧按钮
+     * @param string
+     */
+    public void setRightTxt(String string, OnClickListener onClickListener){
+        rightTxt.setText(string);
+        rightTxt.setOnClickListener(onClickListener);
     }
 }

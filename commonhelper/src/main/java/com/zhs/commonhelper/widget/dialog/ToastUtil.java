@@ -16,7 +16,9 @@ import com.zhs.commonhelper.ZHSCommonApp;
  */
 public class ToastUtil {
 	private static Toast mToast;
-
+	public static void showToast(String string){
+		showToast(string, Toast.LENGTH_SHORT);
+	}
 	/**
 	 * 使用静态mToast，就不要传context。不然导致内存无法释放
 	 * 通过Toast提示用户信息

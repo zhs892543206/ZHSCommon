@@ -10,7 +10,18 @@ import java.io.Serializable;
 public class SearchModel implements Serializable {
     private String searchId;//选择id
     private String searchNameStr;//选择名称
-    private String isRightImg;//是否右侧添加选择图标
+    private String isRightImg;//是否右侧添加选择图标,1显示0 不显示
+
+    public SearchModel(){
+
+    }
+
+    public SearchModel(String searchId, String searchNameStr, String isRightImg) {
+        this.searchId = searchId;
+        this.searchNameStr = searchNameStr;
+        this.isRightImg = isRightImg;
+    }
+
     public String getSearchId() {
         return searchId;
     }
@@ -34,4 +45,6 @@ public class SearchModel implements Serializable {
     public void setIsRightImg(String isRightImg) {
         this.isRightImg = isRightImg;
     }
+
+
 }

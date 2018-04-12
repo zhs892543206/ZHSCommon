@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/widget_height"
         android:orientation="horizontal">
-        <com.ewell.hrs.widget.autotext.AutofitTextView
+        <com.zhs.commonhelper.widget.autotext.AutofitTextView
             android:id="@+id/module_fastindex_headerleft"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -20,7 +20,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="@string/search"/>
-        <com.ewell.hrs.widget.autotext.AutofitTextView
+        <com.zhs.commonhelper.widget.autotext.AutofitTextView
             android:id="@+id/module_fastindex_headerright"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
             android:singleLine="true"
             android:text="@string/cancel"
             />
-            <com.ewell.hrs.widget.searchedt.SearchEditText
+            <com.zhs.commonhelper.widget.fastsearch.searchedt.SearchEditText
                 android:id="@+id/module_fastindex_searchedt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,23 +70,31 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="24dp"
                 />
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/module_fastindex_header_shadow"
+                android:layout_marginBottom="@dimen/widget_padding"
+                android:layout_marginTop="@dimen/widget_padding">
+
                 <com.mcxtzhang.indexlib.IndexBar.widget.IndexBar
                     android:id="@+id/indexBar"
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     app:indexBarPressBackground="@color/translucent"
-
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/module_fastindex_header_shadow"
                     app:indexBarTextSize="16sp"
-                    android:layout_marginBottom="@dimen/widget_padding"
-                    android:layout_marginTop="@dimen/widget_padding"/>
+                    />
+
+            </ScrollView>
         </RelativeLayout>
         <TextView
             android:id="@+id/tvSideBarHint"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/shape_side_bar_bg"
             android:gravity="center"
