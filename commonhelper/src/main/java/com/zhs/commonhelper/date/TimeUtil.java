@@ -92,7 +92,7 @@ public class TimeUtil {
 			return null;
 		}
 
-		SimpleDateFormat dateFromat = new SimpleDateFormat(DATE_FORMAT_SYSTEM);
+		SimpleDateFormat dateFromat = new SimpleDateFormat(DATE_FORMAT_SYSTEM, Locale.getDefault());
 
 		String str = null;
 		try{
@@ -156,14 +156,14 @@ public class TimeUtil {
 	//获取当前时间好像date传过去是否24制度看服务器
 	public static Date getSysdate(){
 		return new Date();
-		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());//设置日期格式
 		//return fromYYMMDDHHMMSS2Date(df.format(new Date()));
 	}
 
 	//获取当前时间
 	public static String getSysdateYYYYMMDDHHMMSS(){
 
-		SimpleDateFormat df = new SimpleDateFormat(DATE1);//设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat(DATE1, Locale.getDefault());//设置日期格式
 		return df.format(new Date());
 	}
 
@@ -183,7 +183,7 @@ public class TimeUtil {
 	 * @return
 	 */
 	public static String getFormatToday(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");//"yyyyMMddHH"我把小时去掉了
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());//"yyyyMMddHH"我把小时去掉了
 		return sdf.format(System.currentTimeMillis());
 	}
 
@@ -192,7 +192,7 @@ public class TimeUtil {
 	 * @return
 	 */
 	public static String getFormatYesterday(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");//"yyyyMMddHH"我把小时去掉了
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());//"yyyyMMddHH"我把小时去掉了
 		return sdf.format(System.currentTimeMillis()-24*60*60*1000);
 	}
 
@@ -202,7 +202,7 @@ public class TimeUtil {
 	 * @return
 	 */
 	public static String getOtherDayStr(int day, String format){
-		SimpleDateFormat sdf = new SimpleDateFormat(format);//"yyyyMMddHH"我把小时去掉了
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());//"yyyyMMddHH"我把小时去掉了
 		return sdf.format(System.currentTimeMillis() + day*24*60*60*1000);
 	}
 

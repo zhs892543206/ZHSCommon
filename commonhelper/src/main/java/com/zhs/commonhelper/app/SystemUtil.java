@@ -1,5 +1,6 @@
 package com.zhs.commonhelper.app;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -22,6 +23,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.ClipboardManager;
 import android.text.format.Formatter;
@@ -60,7 +62,7 @@ public class SystemUtil extends Activity {
 			verCode = context.getPackageManager().getPackageInfo(
 					ZHSCommonApp.appContext.getPackageName(), 0).versionCode;
 		} catch (PackageManager.NameNotFoundException e) {
-			LogUtil.e("getVerCode error:"+e.getMessage());
+			LogUtil.e("getVerCode error:" + e.getMessage());
 		}
 		return verCode;
 	}
@@ -71,7 +73,7 @@ public class SystemUtil extends Activity {
 			verName = context.getPackageManager().getPackageInfo(
 					ZHSCommonApp.appContext.getPackageName(), 0).versionName;
 		} catch (PackageManager.NameNotFoundException e) {
-			LogUtil.e("getVerName error:"+e.getMessage());
+			LogUtil.e("getVerName error:" + e.getMessage());
 		}
 		return verName;
 	}
@@ -119,20 +121,45 @@ public class SystemUtil extends Activity {
 	}
 
 	// 获取手机MAC地址：
-	private String getMacAddress(Context context) {
-		String result = "";
-		WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-		result = wifiInfo.getMacAddress();
-		LogUtil.e("macAdd:" + result);
-		return result;
+	public static String getMacAddress() {
+ /*获取mac地址有一点需要注意的就是android 6.0版本后，以下注释方法不再适用，不管任何手机都会返回"02:00:00:00:00:00"这个默认的mac地址，这是googel官方为了加强权限管理而禁用了getSYstemService(Context.WIFI_SERVICE)方法来获得mac地址。*/
+		//        String macAddress= "";
+//        WifiManager wifiManager = (WifiManager) MyApp.getContext().getSystemService(Context.WIFI_SERVICE);
+//        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+//        macAddress = wifiInfo.getMacAddress();
+//        return macAddress;
+
+		String macAddress = null;
+		StringBuffer buf = new StringBuffer();
+		NetworkInterface networkInterface = null;
+		try {
+			networkInterface = NetworkInterface.getByName("eth1");
+			if (networkInterface == null) {
+				networkInterface = NetworkInterface.getByName("wlan0");
+			}
+			if (networkInterface == null) {
+				return "02:00:00:00:00:02";
+			}
+			byte[] addr = networkInterface.getHardwareAddress();
+			for (byte b : addr) {
+				buf.append(String.format("%02X:", b));
+			}
+			if (buf.length() > 0) {
+				buf.deleteCharAt(buf.length() - 1);
+			}
+			macAddress = buf.toString();
+		} catch (SocketException e) {
+			e.printStackTrace();
+			return "02:00:00:00:00:02";
+		}
+		return macAddress;
 	}
 
 	// 手机CPU信息
 	private String[] getCpuInfo() {
 		String str1 = "/proc/cpuinfo";
 		String str2 = "";
-		String[] cpuInfo = { "", "" }; // 1-cpu型号 //2-cpu频率
+		String[] cpuInfo = {"", ""}; // 1-cpu型号 //2-cpu频率
 		String[] arrayOfString;
 		try {
 			FileReader fr = new FileReader(str1);
@@ -154,7 +181,7 @@ public class SystemUtil extends Activity {
 
 	// 获取手机可用内存和总内存：
 	private String[] getTotalMemory() {
-		String[] result = { "", "" }; // 1-total 2-avail
+		String[] result = {"", ""}; // 1-total 2-avail
 		ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
 		long mTotalMem = 0;
 		long mAvailMem = mi.availMem;
@@ -446,9 +473,9 @@ public class SystemUtil extends Activity {
 		{// 获取 2,3,4G网络 ip的方法
 			try {
 				for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
-						.hasMoreElements();) {
+						.hasMoreElements(); ) {
 					NetworkInterface intf = en.nextElement();
-					for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
 						InetAddress inetAddress = enumIpAddr.nextElement();
 						// 这里需要注意：这里增加了一个限定条件( inetAddress instanceof
 						// Inet4Address
@@ -472,27 +499,37 @@ public class SystemUtil extends Activity {
 	 * 手机如果是权限没设置允许，设置提问也不行估计
 	 * 权限用户不给返回null，我转换为返回""了 网上还有一种方法是获取WLAN当也需要相应权限，而且可能被伪造。
 	 * 还有一种是把各种信息进行拼接，产生的是32位的16进制字符串。这样就肯定有返回值了
-	 *
-	 * @return
 	 */
 	public static String getIMEI(Context context) {
-
-		TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
-		if (TelephonyMgr == null) {
+		String id;
+		//权限检查 android.telephony.TelephonyManager
+		TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			// TODO: Consider calling
+			//    ActivityCompat#requestPermissions
+			// here to request the missing permissions, and then overriding
+			//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+			//                                          int[] grantResults)
+			// to handle the case where the user grants the permission. See the documentation
+			// for ActivityCompat#requestPermissions for more details.
 			return "";
+		}else {
+			//在android7.0的系统下发现TelephonyManager.getDeviceId()在权限允许的情况下取得返回值也为null，解决方法如下:
+			if (mTelephony.getDeviceId() != null) {
+				id = mTelephony.getDeviceId();
+			} else {
+				//android.provider.Settings;
+				id = Settings.Secure.getString(context.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+			}
 		}
-		String szImei = TelephonyMgr.getDeviceId();
-		if (szImei == null) {
-			return "";
-		}
-		return szImei;
+		return id;
 	}
 
 	public static String getDeviceOnlyId(Context context){
 		 //The IMEI: 仅仅只对Android手机有效.采用此种方法，需要在AndroidManifest.xml中加入一个许可：android.permission.READ_PHONE_STATE，并且用户应当允许安装此应用。作为手机来讲，IMEI是唯一的，它应该类似于 359881030314356（除非你有一个没有量产的手机（水货）它可能有无效的IMEI，如：0000000000000）。
 
 		TelephonyManager TelephonyMgr = (TelephonyManager)context.getSystemService(TELEPHONY_SERVICE);
-		String m_szImei = TelephonyMgr.getDeviceId(); // Requires READ_PHONE_STATE
+		String m_szImei = getIMEI(context); // Requires READ_PHONE_STATE
 
 		//通过取出ROM版本、制造商、CPU型号、以及其他硬件信息来实现这一点。这样计算出来的ID不是唯一的（因为如果两个手机应用了同样的硬件以及Rom 镜像）。但应当明白的是，出现类似情况的可能性基本可以忽略
 		String m_szDevIDShort = "35" + //we make this look like a valid IMEI
@@ -502,8 +539,7 @@ public class SystemUtil extends Activity {
 		String m_szAndroidID = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
 
 		//The WLAN MAC Address string, 是另一个唯一ID。但是你需要为你的工程加入android.permission.ACCESS_WIFI_STATE 权限，否则这个地址会为null。
-		WifiManager wm = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		String m_szWLANMAC = wm.getConnectionInfo().getMacAddress();
+		String m_szWLANMAC = getMacAddress();
 
 		//The BT MAC Address string, 只在有蓝牙的设备上运行。并且要加入android.permission.BLUETOOTH 权限.Returns: 43:25:78:50:93:38 . 蓝牙没有必要打开，也能读取。
 		BluetoothAdapter m_BluetoothAdapter = null; // Local Bluetooth adapter

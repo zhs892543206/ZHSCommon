@@ -68,7 +68,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
 	/**
 	 * 初始化
-	 * 
+	 * 这里是全局一直存在的，别用activity的不然内存溢出了
 	 * @param context
 	 */
 	public void init(Context context) {
